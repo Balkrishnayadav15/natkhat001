@@ -33,6 +33,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.google.gson.JsonObject;
 import com.orange.dao.AdmissionDao;
+import com.orange.model.FeeDeposite;
 import com.orange.model.Guardian;
 import com.orange.model.Parents;
 import com.orange.model.Student;
@@ -154,7 +155,8 @@ public class BulkStudentUpload extends HttpServlet {
 		List<StudentDocs> studentDocsList = new ArrayList<StudentDocs>();
 		List<Guardian> guardianList = new ArrayList<Guardian>();
 		List<TransportDetails> transportList = new ArrayList<TransportDetails>();
-	
+		List<FeeDeposite> feeDepositeList = new ArrayList<FeeDeposite>();
+		 
 		try{
 			// Creating Input Stream 
 			FileInputStream myInput = new FileInputStream(file);
@@ -175,6 +177,7 @@ public class BulkStudentUpload extends HttpServlet {
 				StudentDocs studentDocs = new StudentDocs();
 				Guardian guradian = new Guardian();
 				TransportDetails tDetails = new TransportDetails();
+				FeeDeposite feeDeposite = new FeeDeposite();
 				
 				XSSFRow myRow = (XSSFRow) rowIter.next();
 				Iterator<Cell> cellIter = myRow.cellIterator();
@@ -212,6 +215,8 @@ public class BulkStudentUpload extends HttpServlet {
 						studentDocs.setScholarNo(value);
 						guradian.setScholarNo(value);
 						tDetails.setScholarNo(value);
+						feeDeposite.setScholarNo(value);
+						
 					}
 					if(index == 1){
 						student.setName(value);					
@@ -293,6 +298,7 @@ public class BulkStudentUpload extends HttpServlet {
 					}
 					if(index == 26){
 						student.setAdmissionClass(value);
+						feeDeposite.setsClass(value);
 					}
 					if(index == 27){
 						student.setStudyMedium(value);
@@ -406,13 +412,14 @@ public class BulkStudentUpload extends HttpServlet {
 					studentDocsList.add(studentDocs);
 					guardianList.add(guradian);
 					transportList.add(tDetails); 
+					feeDepositeList.add(feeDeposite);
 				}
 				rowCount++;
 			}
 			
 			//Save all data to database
 			AdmissionDao dao = new AdmissionDao(franchise);
-			isSave = dao.saveStudentInfoList(studentList, parentsList, studentDocsList, guardianList, transportList);
+			isSave = dao.saveStudentInfoList(studentList, parentsList, studentDocsList, guardianList, transportList,feeDepositeList);
 			
 		}
 		catch (Exception e){

@@ -25,7 +25,7 @@ public class EnquiryDao {
         PreparedStatement stmt=null;
         String query = "select max(id) from Enquiry";
         try {
-	        	 conn = DBUtil.getConnection(dbType);
+	        	 conn = DBUtil.getConnection();
 	            stmt = conn.prepareStatement(query);
 	            ResultSet rs = stmt.executeQuery();
 	            while(rs.next()) {
@@ -52,7 +52,7 @@ public class EnquiryDao {
         
         try {
         	String insertQuery = "insert into Enquiry(enquiryId, username,schoolname,emailid,mobile,schoolArea,firmAmout,status) values(?,?,?,?,?,?,?,?)";
-        	conn = DBUtil.getConnection(dbType);
+        	conn = DBUtil.getConnection();
             stmt = conn.prepareStatement(insertQuery);
             stmt.setString(1, user.getEnquiryId());
             stmt.setString(2,user.getName());
@@ -89,7 +89,7 @@ public class EnquiryDao {
         String query = "select id, username,schoolname,address,emailid,mobile,enquiryId from EnquiryUser where status = 'Pending' order by id asc ";
      
         try  {
-        	 conn = DBUtil.getConnection(dbType);
+        	 conn = DBUtil.getConnection();
             stmt = conn.prepareStatement(query);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()) {

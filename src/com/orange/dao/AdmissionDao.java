@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.orange.model.FeeDeposite;
 import com.orange.model.Guardian;
 import com.orange.model.Parents;
 import com.orange.model.Student;
@@ -18,6 +19,7 @@ import com.orange.model.StudentInfo;
 import com.orange.model.TransportDetails;
 import com.orange.util.DBUtil;
 import com.orange.util.DateUtility;
+import com.orange.util.FeesQuery;
 import com.orange.util.StudentQueryUtil;
 
 public class AdmissionDao {
@@ -53,27 +55,29 @@ public class AdmissionDao {
 		return nextRegNum+001;
 	}
 	
-	public boolean saveStudentInfo(Student student,TransportDetails tDetails,Guardian guardian,StudentDocs docs,Parents parent, String franchise){
+	public boolean saveStudentInfo(Student student,TransportDetails tDetails,Guardian guardian,StudentDocs docs,Parents parent, String franchise, FeeDeposite feeDeposite){
 		
 		boolean isSave = false;
 		Connection conn=null;
         
 	        try {
-	        	conn = DBUtil.getConnection(dbType);
+	        	conn = DBUtil.getConnection();
 	        	long id = getNextRegistrationNumber(conn);
-	        	String scholarId = String.format("NAT@%03d", id);
-	        	
-	        	student.setScholarNo(scholarId);
-	        	tDetails.setScholarNo(scholarId);
-	        	guardian.setScholarNo(scholarId);
-	        	docs.setScholarNo(scholarId);
-	        	parent.setScholarNo(scholarId);
+	        	//String scholarId = String.format("NAT@%03d", id);
+	        	String scholarNo = String.valueOf(id);
+	        	student.setScholarNo(scholarNo);
+	        	tDetails.setScholarNo(scholarNo);
+	        	guardian.setScholarNo(scholarNo);
+	        	docs.setScholarNo(scholarNo);
+	        	parent.setScholarNo(scholarNo);
+	        	feeDeposite.setScholarNo(scholarNo);
 	        	
 	        	saveStudent(id,student,conn);
 	        	saveTransportDetails(id,tDetails,conn);
 	        	saveGuardian(id,guardian,conn);
 	        	saveDocs(id,docs,conn);
 	        	saveParents(id,parent,conn);
+	        	saveFeeDeposite(id,feeDeposite,conn);
 	            
 	            conn.commit();
 	            isSave = true;
@@ -98,6 +102,53 @@ public class AdmissionDao {
 	}
 
 	
+	private void saveFeeDeposite(long id, FeeDeposite feeDeposite, Connection conn) throws Exception {
+
+		  PreparedStatement stmt=null,feeInstStmt = null;
+		  try {
+			  
+				//Get installment info
+				feeInstStmt = conn.prepareStatement(FeesQuery.getFeesInstallQuery + " where class=?");
+				feeInstStmt.setString(1,feeDeposite.getsClass());
+				ResultSet feeInstRs = feeInstStmt.executeQuery();
+				while(feeInstRs.next()){
+					feeDeposite.setActivityFees(feeInstRs.getLong("activity_fees"));
+					feeDeposite.setFirstInstall(feeInstRs.getLong("first_inatall"));
+					feeDeposite.setFirstStatus(FeesQuery.UN_PAID);
+					feeDeposite.setSecondInstall(feeInstRs.getLong("second_inatall"));
+					feeDeposite.setSecondStatus(FeesQuery.UN_PAID);
+					feeDeposite.setThirdInstall(feeInstRs.getLong("third_inatall"));
+					feeDeposite.setThirdStatus(FeesQuery.UN_PAID);
+				}
+				
+				
+	        	//conn = DBUtil.getConnection(dbType);
+	        	String insertIntoFeeDeposite = FeesQuery.insertIntoFeeDeposite;
+	        	
+	            stmt = conn.prepareStatement(insertIntoFeeDeposite);
+	            stmt.setLong(1, id);
+	            stmt.setString(2, feeDeposite.getScholarNo());
+	            stmt.setLong(3, feeDeposite.getActivityFees());
+	            stmt.setLong(4, feeDeposite.getFirstInstall());
+	            stmt.setString(5, feeDeposite.getFirstStatus());
+	            stmt.setLong(6, feeDeposite.getSecondInstall());
+	            stmt.setString(7, feeDeposite.getSecondStatus());
+	            stmt.setLong(8, feeDeposite.getThirdInstall());
+	            stmt.setString(9, feeDeposite.getThirdStatus());
+	            
+	            stmt.executeUpdate();
+	        }catch(Exception e) {
+	        	throw e;
+	        }finally  {
+		           try {
+		        	   feeInstStmt.close();
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+	        }
+	
+	}
 	private void saveParents(long id, Parents parent, Connection conn) throws Exception {
 		  PreparedStatement stmt=null;
 		  try {
@@ -293,13 +344,13 @@ public class AdmissionDao {
 	        }
 	}
 	public boolean saveStudentInfoList(List<Student> studentList, List<Parents> parentsList,
-			List<StudentDocs> studentDocsList, List<Guardian> guardianList, List<TransportDetails> transportList) {
+			List<StudentDocs> studentDocsList, List<Guardian> guardianList, List<TransportDetails> transportList, List<FeeDeposite> feeDepositeList) {
 	        
 	        boolean isSave = false;
 			Connection conn=null;
 	        
 		        try {
-		        	conn = DBUtil.getConnection(dbType);
+		        	conn = DBUtil.getConnection();
 		        	long id = getNextRegistrationNumber(conn);
 		        	long incrementId = id;
 		        	
@@ -325,6 +376,12 @@ public class AdmissionDao {
 		        	incrementId = id;
 		        	for(TransportDetails transportDetails:transportList){
 		        		saveTransportDetails(incrementId,transportDetails,conn);
+		        		incrementId++;
+		        	}
+		        	
+		        	incrementId = id;
+		        	for(FeeDeposite feeDeposite:feeDepositeList){
+		        		saveFeeDeposite(incrementId,feeDeposite,conn);
 		        		incrementId++;
 		        	}
 		        	
@@ -355,7 +412,7 @@ public class AdmissionDao {
 		Connection conn=null;
 		PreparedStatement stmt=null;
 		try {
-			conn = DBUtil.getConnection(dbType);
+			conn = DBUtil.getConnection();
 			stmt = conn.prepareStatement(StudentQueryUtil.getAllStudentQuery + " where s.scholarNo like ? order by id desc");
 			stmt.setString(1, "%"+scholarNo+"%");
 			ResultSet rs = stmt.executeQuery();
@@ -379,7 +436,7 @@ public List<StudentInfo> getStudentByName(String name){
 		Connection conn=null;
 		PreparedStatement stmt=null;
 		try {
-			conn = DBUtil.getConnection(dbType);
+			conn = DBUtil.getConnection();
 			stmt = conn.prepareStatement(StudentQueryUtil.getAllStudentQuery + " where s.name like ? order by id desc");
 			stmt.setString(1, "%"+name+"%");
 			ResultSet rs = stmt.executeQuery();
@@ -514,7 +571,7 @@ public List<StudentInfo> getStudentByName(String name){
 		Connection conn=null;
 		PreparedStatement todaysStmt = null,toalstmt=null,maleStmt = null, femaleStmt = null, genStmt = null , obcStmt = null , scStmt = null , stStmt = null ;
 		try {
-			conn = DBUtil.getConnection(dbType);
+			conn = DBUtil.getConnection();
 			toalstmt = conn.prepareStatement("select count(s.scholarNo) from studentInfo s");
 			Integer totalStudent = 0;
 			ResultSet rs = toalstmt.executeQuery();
@@ -609,7 +666,7 @@ public List<StudentInfo> getStudentByName(String name){
 		PreparedStatement todaysStmt = null;
 		List<StudentInfo> todayAdmitStuList = null;
 		try {
-			conn = DBUtil.getConnection(dbType);
+			conn = DBUtil.getConnection();
 			//Get all students who admitted in todays date
 			todaysStmt = conn.prepareStatement(StudentQueryUtil.getAllStudentQuery + " where DATE(s.createdDate) = CURDATE() order by s.id desc;");
 			//todaysStmt.setString(1, scholarNo);
@@ -635,7 +692,7 @@ public List<StudentInfo> getStudentByName(String name){
 		PreparedStatement classStmt = null;
 		List<StudentInfo> classStuList = null;
 		try {
-			conn = DBUtil.getConnection(dbType);
+			conn = DBUtil.getConnection();
 			//Get all students who admitted in todays date
 			classStmt = conn.prepareStatement(StudentQueryUtil.getAllStudentQuery + " where s.admissionClass = ? order by s.id desc;");
 			classStmt.setString(1, sClass);
@@ -666,7 +723,7 @@ public List<StudentInfo> getStudentByName(String name){
 		Map<String,Integer> totalStu = new HashMap<String,Integer>();
 		Map<String, Map<String,Integer>> allClassSecMap = new HashMap<>();
 		try {
-			conn = DBUtil.getConnection(dbType);
+			conn = DBUtil.getConnection();
 			//Get all students who admitted in todays date
 			classStmt = conn.prepareStatement(StudentQueryUtil.getClassSectoin);
 			ResultSet rs = classStmt.executeQuery();
@@ -734,7 +791,7 @@ public List<StudentInfo> getStudentByName(String name){
 		Connection conn = null;
 		int rowUpate  = 0;
 		  try {
-	        	conn = DBUtil.getConnection(dbType);
+	        	conn = DBUtil.getConnection();
 	            stmt = conn.prepareStatement(docInsertQuery);
 	            stmt.setString(1, section);
 	            stmt.setLong(2,Integer.parseInt(id));

@@ -22,7 +22,7 @@ public class LoginDao {
             //String query = "select user_type from cspuser where user_id=? and password = ?";
 	        try{
 	           // 
-	           conn = DBUtil.getConnection(dbType);
+	           conn = DBUtil.getConnection();
        		   stmt= conn.prepareStatement(query);
 
 	            stmt.setString(1, userId);

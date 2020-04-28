@@ -30,7 +30,7 @@ public class RegistrationDao {
         String todaysDate = dateFormat.format(date);  
        */
         try {
-        	conn = DBUtil.getConnection(dbType);
+        	conn = DBUtil.getConnection();
             stmt = conn.prepareStatement(generateInsert(user));
             stmt.setString(1, user.getRegisterId());
             stmt.setString(2, user.getName());
@@ -86,7 +86,7 @@ public long getNextRegistrationNumber(String type) throws Exception {
 	PreparedStatement stmt=null;
 	String query = "select max(id) from Registration wher userType = ?";
 	try {
-		conn = DBUtil.getConnection(dbType);
+		conn = DBUtil.getConnection();
 		stmt = conn.prepareStatement(query);
 		stmt.setString(1, type);
 		ResultSet rs = stmt.executeQuery();

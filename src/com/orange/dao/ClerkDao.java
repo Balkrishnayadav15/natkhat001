@@ -50,7 +50,7 @@ public class ClerkDao {
 		}
 		searchParam = searchParam + " order by id desc";
 		try {
-			conn = DBUtil.getConnection(dbType);
+			conn = DBUtil.getConnection();
 			stmt = conn.prepareStatement(StudentQueryUtil.clrkSearchByDocs + searchParam);
 			ResultSet rs = stmt.executeQuery();
 			allSelStudent = setClrkStudentsDocs(rs);
@@ -133,7 +133,7 @@ public class ClerkDao {
 		}
 		searchParam = searchParam + " order by id desc";
 		try {
-			conn = DBUtil.getConnection(dbType);
+			conn = DBUtil.getConnection();
 			stmt = conn.prepareStatement(StudentQueryUtil.getAllStudentQuery + searchParam);
 		
 			ResultSet rs = stmt.executeQuery();
@@ -281,7 +281,7 @@ public class ClerkDao {
 		
 		searchParam = searchParam + " order by id desc";
 		try {
-			conn = DBUtil.getConnection(dbType);
+			conn = DBUtil.getConnection();
 			stmt = conn.prepareStatement(StudentQueryUtil.getAllStudentQuery + searchParam);
 		
 			ResultSet rs = stmt.executeQuery();
@@ -317,7 +317,7 @@ public class ClerkDao {
 		
 		searchParam = searchParam + " order by id desc";
 		try {
-			conn = DBUtil.getConnection(dbType);
+			conn = DBUtil.getConnection();
 			stmt = conn.prepareStatement(StudentQueryUtil.getAllStudentQuery + searchParam);
 		
 			ResultSet rs = stmt.executeQuery();
@@ -355,7 +355,7 @@ public class ClerkDao {
 		}
 		
 		try {
-			conn = DBUtil.getConnection(dbType);
+			conn = DBUtil.getConnection();
 			stmt = conn.prepareStatement(StudentQueryUtil.getAllStudentQuery + searchParam);
 		
 			ResultSet rs = stmt.executeQuery();

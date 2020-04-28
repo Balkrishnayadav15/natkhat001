@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.orange.dao.AdmissionDao;
+import com.orange.model.FeeDeposite;
 import com.orange.model.Guardian;
 import com.orange.model.Parents;
 import com.orange.model.Student;
@@ -61,10 +62,11 @@ public class StudAdmissionController extends HttpServlet {
 			StudentDocs studentDocs = createStudentDocs(request);
 			Guardian guradian = createGuardian(request);
 			TransportDetails tDetails = createTDetails(request);
+			FeeDeposite feeDeposite = new FeeDeposite();//createFeeDeposite(request);
 			String franchise = request.getParameter("franchise");
 
 			AdmissionDao dao = new AdmissionDao(franchise);
-			boolean isSave = dao.saveStudentInfo(student, tDetails, guradian, studentDocs, parents,franchise);
+			boolean isSave = dao.saveStudentInfo(student, tDetails, guradian, studentDocs, parents,franchise,feeDeposite);
 			request.setAttribute("ADMIN_SAVED", "YES");
 
 			String adminJsp = "/natkhat/admin/getStudent?franchise=natkhat001";
@@ -76,8 +78,6 @@ public class StudAdmissionController extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-
-	
 
 	private Student createStudent(HttpServletRequest request) throws ParseException {
 		Student student = new Student();
@@ -185,4 +185,15 @@ public class StudAdmissionController extends HttpServlet {
 		parent.setMotherAccNo(request.getParameter("motherAccNo"));
 		return parent;
 	}
+	/*private FeeDeposite createFeeDeposite(HttpServletRequest request) {
+		
+		FeeDeposite feeDeposite = new FeeDeposite();
+		feeDeposite.setScholarNo(request.getParameter("scholarNo"));
+		feeDeposite.setName(request.getParameter("name"));
+		feeDeposite.setFatherName(request.getParameter("fatherName"));
+		feeDeposite.setsClass(request.getParameter("admissionClass"));
+		feeDeposite.setMobileNo(request.getParameter("fatherMobNo"));
+		
+		return feeDeposite;
+	}*/
 }
