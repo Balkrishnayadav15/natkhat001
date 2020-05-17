@@ -1,6 +1,6 @@
-package com.orange.model;
+package com.orange.model.report;
 
-public class Receipt {
+public class ClassReport {
 
 	private Long id;
 	private String scholarNo;

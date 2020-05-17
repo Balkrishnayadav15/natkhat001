@@ -564,6 +564,18 @@ a.SidePanel:active {
 						<TD width=154 bgcolor="#82E6FF" valign=middle
 							style='border-color: #FFFFFF #FFFFFF #FFFFFF #FFFFFF; border-style: solid;'><BR>
 						
+							<%
+								List<Long> receiptList = feeDeposite.getReceiptIds();
+								if(null != receiptList){
+									for(Long ids:receiptList){
+							%>
+								<a href="#" onClick="window.open('<%=appUrl %>feeReceipt?receiptId=<%=ids %>','Receipt-<%=ids %>','resizable,height=500,width=800'); return false;">Receipt-<%=ids %></a>
+								<br>
+							<% 
+									}
+								}
+							
+							%>
 						</TD>
 						<TD width=94 bgcolor="#82E6FF" valign=middle
 							style='border-color: #FFFFFF #FFFFFF #FFFFFF #FFFFFF; border-style: solid;'><div

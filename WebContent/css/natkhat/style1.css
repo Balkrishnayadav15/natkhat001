@@ -1,0 +1,96 @@
+
+.bodycss{
+
+	background-color: !important;
+
+
+}
+.header{
+
+	/*text-align: center !important;*/
+	font-size: 40px;
+	font-family: sans-serif;
+	font-weight:10px;
+	color:  #000066;
+	/*border: 2px solid  #003300;*/
+  	border-radius: 20px;
+  	box-shadow: 5px 5px 0 0;
+  	/*margin-bottom: 20px;*/
+  	background-color: white;
+
+}
+
+.ml-5 {
+  margin-left: ($spacer * .25) !important;
+}
+
+/*.bcolor{
+
+	background: linear-gradient(to bottom, #00ff00 0%, #00cc00 100%);
+	background-color:;
+	border-radius: 0px;
+
+}*/
+.welcommsg{
+
+	/*text-align: center !important;*/
+	font-size: 35px;
+	font-family: sans-serif;
+	font-weight:10px;
+	color:  #00ff00;
+
+}
+
+.aSheet{
+
+	/*text-align: center !important;*/
+	font-size: 25px;
+	font-family: sans-serif;
+	font-weight:5px;
+	color:  #000066;
+	padding: 5px;
+	border-radius: 8px;
+  	box-shadow: 5px 5px 0 0;
+  	background-color: white;
+
+
+}
+
+.tstudents{
+    margin-top: 10px;
+	color: white;
+	background: linear-gradient(to top, #0000ff 0%, #3333ff 100%);
+	border-radius: 10px;
+}
+
+.body1{
+	margin: 5px;
+	background: linear-gradient(to top, #0066ff 0%, #33ccff 100%);
+	border-radius: 50px; 
+	height: 180px;
+	
+}
+
+.iField{
+
+	border-radius: 15px; 	
+}
+
+.iFieldtable{
+    
+    height: 70px;
+    border-radius: 50px;    
+}
+
+.sstudent{
+
+	font-size:20px !important;
+}
+
+.astableh2{
+
+	color: black;
+	background: linear-gradient(to top, #0066ff 0%, #33ccff 100%);
+	border-radius: 10px;
+}
+

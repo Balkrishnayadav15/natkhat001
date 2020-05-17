@@ -32,7 +32,8 @@ public class FeeDeposite {
 	private String thirdStatus;
 	
 	private Long presentDues;
-	private List<Receipt> history;
+	private List<Long> receiptIds;
+	private Long latestReceipt;
 	
 	public String getsSection() {
 		return sSection;
@@ -184,11 +185,17 @@ public class FeeDeposite {
 	public void setPresentDues(Long presentDues) {
 		this.presentDues = presentDues;
 	}
-	public List<Receipt> getHistory() {
-		return history;
+	public List<Long> getReceiptIds() {
+		return receiptIds;
 	}
-	public void setHistory(List<Receipt> history) {
-		this.history = history;
+	public void setReceiptIds(List<Long> receiptIds) {
+		this.receiptIds = receiptIds;
+	}
+	public Long getLatestReceipt() {
+		return latestReceipt;
+	}
+	public void setLatestReceipt(Long latestReceipt) {
+		this.latestReceipt = latestReceipt;
 	}
 	
 }

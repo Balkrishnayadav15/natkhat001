@@ -71,11 +71,4 @@ public class FeesDepositeController extends HttpServlet{
 	}
 
 
-	private FeeDeposite calculateFees(String amount, String discount, String scholarNo) {
-		FeeDeposite feeDeposite = null;
-		
-		return feeDeposite;
-	}
-	
-	
 }
