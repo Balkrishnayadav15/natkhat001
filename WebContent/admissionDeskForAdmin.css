@@ -1,0 +1,117 @@
+.ws6 {
+	font-size: 8px;
+	font-family: 'Squada One', cursive;
+}
+
+.ws7 {
+	font-size: 9.3px;
+	font-family: 'Squada One', cursive;
+}
+
+.ws8 {
+	font-size: 11px;
+	font-family: 'Squada One', cursive;
+}
+
+.ws9 {
+	font-size: 12px;
+	font-family: 'Squada One', cursive;
+}
+
+.ws10 {
+	font-size: 13px;
+	font-family: 'Squada One', cursive;
+}
+
+.ws11 {
+	font-size: 15px;
+	font-family: 'Squada One', cursive;
+}
+
+.ws12 {
+	font-size: 16px;
+	font-family: 'Squada One', cursive;
+}
+
+.ws14 {
+	font-size: 19px;
+	font-family: 'Squada One', cursive;
+}
+
+.ws16 {
+	font-size: 21px;
+	font-family: 'Squada One', cursive;
+}
+
+.ws18 {
+	font-size: 24px;
+	font-family: 'Squada One', cursive;
+}
+
+.ws20 {
+	font-size: 27px;
+	font-family: 'Squada One', cursive;
+}
+
+.ws22 {
+	font-size: 29px;
+	font-family: 'Squada One', cursive;
+}
+
+.ws24 {
+	font-size: 32px;
+	font-family: 'Squada One', cursive;
+}
+
+.ws26 {
+	font-size: 35px;
+	font-family: 'Squada One', cursive;
+}
+
+.ws28 {
+	font-size: 37px;
+	font-family: 'Squada One', cursive;
+}
+
+.ws36 {
+	font-size: 48px;
+	font-family: 'Squada One', cursive;
+}
+
+.ws48 {
+	font-size: 64px;
+	font-family: 'Squada One', cursive;
+}
+
+.ws72 {
+	font-size: 96px;
+	font-family: 'Squada One', cursive;
+}
+
+.wpmd {
+	font-size: 13px;
+	font-family: 'Squada One', cursive;
+}
+/*----------Para Styles----------*/
+DIV, UL, OL /* Left */ {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+a.SidePanel:link {
+	color: #FFFFFF;
+	text-decoration: none;
+}
+
+a.SidePanel:hover {
+	font-family: Copperplate Gothic Bold;
+	color: #000000;
+	background: #FFFFFF;
+	text-decoration: none;
+}
+
+a.SidePanel:active {
+	font-family: Copperplate Gothic Bold;
+	color: #000000;
+	text-decoration: none;
+}

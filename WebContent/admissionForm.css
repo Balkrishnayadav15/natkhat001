@@ -1,0 +1,169 @@
+
+
+
+#mask {
+  position:absolute;
+  left:0;
+  top:0;
+  z-index:9000;
+  background-color:#000;
+  display:none;
+}  
+#boxes .window {
+  position:absolute;
+  left:0;
+  top:0;
+  width:440px;
+  height:100px;
+  display:none;
+  z-index:9999;
+  padding:20px;
+  border-radius: 15px;
+  text-align: center;
+}
+#boxes #dialog {
+  width:450px; 
+  min-height:100px;
+  padding:10px;
+  background-color:#fff;
+  font-family: 'Segoe UI Light', sans-serif;
+  font-size: 15pt;
+  font-weight: bold;
+  color: #fff;
+}
+.maintext{
+    text-align: center;
+  font-family: "Segoe UI", sans-serif;
+  text-decoration: none;
+}
+
+#lorem{
+	font-family: "Segoe UI", sans-serif;
+	font-size: 12pt;
+  text-align: left;
+}
+#popupfoot{
+	font-family: "Segoe UI", sans-serif;
+	font-size: 16pt;
+  padding: 10px 20px;
+}
+#popupfoot a{
+	text-decoration: none;
+}
+.agree:hover{
+  background-color: #D1D1D1;
+}
+.popupoption:hover{
+	background-color:#D1D1D1;
+	color: green;
+}
+.popupoption2:hover{
+	
+	color: red;
+}
+.tabOther {
+	display: none;
+}
+/*----------Text Styles----------*/
+.ws6 {
+	font-size: 8px;
+}
+
+.ws7 {
+	font-size: 9.3px;
+}
+
+.ws8 {
+	font-size: 11px;
+}
+
+.ws9 {
+	font-size: 12px;
+}
+
+.ws10 {
+	font-size: 13px;
+}
+
+.ws11 {
+	font-size: 15px;
+}
+
+.ws12 {
+	font-size: 16px;
+}
+
+.ws14 {
+	font-size: 19px;
+}
+
+.ws16 {
+	font-size: 21px;
+}
+
+.ws18 {
+	font-size: 24px;
+}
+
+.ws20 {
+	font-size: 27px;
+}
+
+.ws22 {
+	font-size: 29px;
+}
+
+.ws24 {
+	font-size: 32px;
+}
+
+.ws26 {
+	font-size: 35px;
+}
+
+.ws28 {
+	font-size: 37px;
+}
+
+.ws36 {
+	font-size: 48px;
+}
+
+.ws48 {
+	font-size: 64px;
+}
+
+.ws72 {
+	font-size: 96px;
+}
+
+.wpmd {
+	font-size: 13px;
+	font-family: Arial, Helvetica, Sans-Serif;
+	font-style: normal;
+	font-weight: normal;
+}
+/*----------Para Styles----------*/
+DIV, UL, OL /* Left */ {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+
+a.SidePanel:link {
+	color: #FFFFFF;
+	text-decoration: none;
+}
+
+a.SidePanel:hover {
+	font-family: Copperplate Gothic Bold;
+	color: #000000;
+	background: #FFFFFF;
+	text-decoration: none;
+}
+
+a.SidePanel:active {
+	font-family: Copperplate Gothic Bold;
+	color: #000000;
+	text-decoration: none;
+}
